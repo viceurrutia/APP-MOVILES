@@ -1,0 +1,78 @@
+[
+    {
+        "id": 1,
+        "name": "Hollow Knight: Silksong",
+        "genero": "Metroidvania / Aventura",
+        "originalPrice": "$7.990",
+        "image": "silksong.jpg"
+    },
+    {
+        "id": 2,
+        "name": "Peak",
+        "genero": "Estrategia / Puzzles",
+        "originalPrice": "$9.990",
+        "image": "peak.jpg"
+    },
+    {
+        "id": 3,
+        "name": "Helldivers 2",
+        "genero": "Shooter / Acción",
+        "originalPrice": "$49.990",
+        "image": "hd2.jpg"
+    },
+    {
+        "id": 4,
+        "name": "Bloodborne",
+        "genero": "RPG / Acción",
+        "originalPrice": "$14.990",
+        "image": "bloodborne.jpg"
+    },
+    {
+        "id": 5,
+        "name": "Ghost of Tsushima",
+        "genero": "Aventura / Acción",
+        "originalPrice": "$19.990",
+        "image": "got.jpg"
+    },
+    {
+        "id": 6,
+        "name": "Grand Theft Auto V",
+        "genero": "Acción / Mundo Abierto",
+        "originalPrice": "$19.990",
+        "image": "gta5.jpg"
+    },
+    {
+        "id": 7,
+        "name": "Sons of the Forest",
+        "genero": "Supervivencia / Terror",
+        "originalPrice": "$19.990",
+        "image": "softf.jpg"
+    },
+    {
+        "id": 8,
+        "name": "The Legend of Zelda: Tears of the Kingdom",
+        "genero": "Aventura / RPG",
+        "originalPrice": "$29.990",
+        "image": "zelda2.jpg"
+    },
+    {
+        "id": 9,
+        "name": "7 Days to Die",
+        "genero": "Supervivencia / Sandbox",
+        "image": "daystodie.jpg"
+    },
+    {
+        "id": 10,
+        "name": "Palworld",
+        "genero": "Supervivencia / Sandbox",
+        "originalPrice": "$15.990",
+        "image": "palworld.jpg"
+    },
+    {
+        "id": 11,
+        "name": "Dying Light 2 Stay Human",
+        "genero": "RPG / Terror",
+        "originalPrice": "$18.990",
+        "image": "dl2.jpg"
+    }
+]
