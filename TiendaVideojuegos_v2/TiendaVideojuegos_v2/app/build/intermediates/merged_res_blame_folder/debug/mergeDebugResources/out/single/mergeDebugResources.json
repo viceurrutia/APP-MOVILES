@@ -1,0 +1,34 @@
+[
+    {
+        "merged": "com.example.tiendavideojuegos.app-debug-32:/drawable_eldenring.png.flat",
+        "source": "com.example.tiendavideojuegos.app-main-34:/drawable/eldenring.png"
+    },
+    {
+        "merged": "com.example.tiendavideojuegos.app-debug-32:/drawable_mario.png.flat",
+        "source": "com.example.tiendavideojuegos.app-main-34:/drawable/mario.png"
+    },
+    {
+        "merged": "com.example.tiendavideojuegos.app-debug-32:/layout_activity_login.xml.flat",
+        "source": "com.example.tiendavideojuegos.app-main-34:/layout/activity_login.xml"
+    },
+    {
+        "merged": "com.example.tiendavideojuegos.app-debug-32:/layout_activity_main.xml.flat",
+        "source": "com.example.tiendavideojuegos.app-main-34:/layout/activity_main.xml"
+    },
+    {
+        "merged": "com.example.tiendavideojuegos.app-debug-32:/layout_activity_game_detail.xml.flat",
+        "source": "com.example.tiendavideojuegos.app-main-34:/layout/activity_game_detail.xml"
+    },
+    {
+        "merged": "com.example.tiendavideojuegos.app-debug-32:/drawable_zelda.png.flat",
+        "source": "com.example.tiendavideojuegos.app-main-34:/drawable/zelda.png"
+    },
+    {
+        "merged": "com.example.tiendavideojuegos.app-debug-32:/layout_activity_register.xml.flat",
+        "source": "com.example.tiendavideojuegos.app-main-34:/layout/activity_register.xml"
+    },
+    {
+        "merged": "com.example.tiendavideojuegos.app-debug-32:/layout_item_game.xml.flat",
+        "source": "com.example.tiendavideojuegos.app-main-34:/layout/item_game.xml"
+    }
+]
