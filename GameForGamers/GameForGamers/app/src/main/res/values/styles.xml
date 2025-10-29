@@ -1,0 +1,4 @@
+<resources>
+<style name="Theme.GameForGamers" parent="Theme.MaterialComponents.Light.NoActionBar">
+<item name="colorPrimary">@color/primary</item><item name="colorPrimaryVariant">@color/primaryDark</item><item name="colorAccent">@color/accent</item>
+</style></resources>
