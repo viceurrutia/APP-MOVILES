@@ -1,0 +1,12 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent" android:layout_height="match_parent">
+<LinearLayout android:orientation="vertical" android:padding="24dp" android:layout_width="match_parent" android:layout_height="wrap_content">
+<EditText android:id="@+id/etNombre" android:hint="Nombre" android:layout_width="match_parent" android:layout_height="wrap_content"/>
+<EditText android:id="@+id/etApellido" android:hint="Apellido" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="8dp"/>
+<EditText android:id="@+id/etRut" android:hint="RUT (ej: 12.345.678-5)" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="8dp"/>
+<EditText android:id="@+id/etRegion" android:hint="Región" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="8dp"/>
+<EditText android:id="@+id/etComuna" android:hint="Comuna" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="8dp"/>
+<EditText android:id="@+id/etEmail" android:hint="Correo" android:inputType="textEmailAddress" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="8dp"/>
+<EditText android:id="@+id/etPassword" android:hint="Contraseña (min 6)" android:inputType="textPassword" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="8dp"/>
+<Button android:id="@+id/btnRegister" android:text="Registrar" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="12dp"/>
+</LinearLayout>
+</ScrollView>

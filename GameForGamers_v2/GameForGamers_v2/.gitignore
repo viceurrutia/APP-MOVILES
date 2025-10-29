@@ -1,0 +1,84 @@
+# =========================================
+# 👾 GameForGamers - Android Studio Project
+# =========================================
+
+# Gradle build output
+/build/
+*/build/
+**/build/
+
+# Generated files
+.gradle/
+local.properties
+/.idea/caches/
+/.idea/libraries/
+/.idea/modules.xml
+/.idea/workspace.xml
+/.idea/navEditor.xml
+/.idea/assetWizardSettings.xml
+
+# IntelliJ / Android Studio config
+.idea/
+*.iml
+
+# Logs
+*.log
+
+# OS-specific files
+.DS_Store
+Thumbs.db
+
+# APK / outputs
+*.apk
+*.ap_
+*.aab
+*.dex
+
+# Kotlin / Java compiled classes
+*.class
+*.jar
+*.war
+*.ear
+
+# Generated binding + intermediates
+app/build/
+app/intermediates/
+app/generated/
+app/.gradle/
+app/.idea/
+
+# Android test files
+*.hprof
+
+# Gradle Wrapper
+gradlew
+gradlew.bat
+gradle/
+
+# ==============================
+# ✅ Custom project exclusions
+# ==============================
+
+# Ignore user data, caches, local properties
+*.keystore
+*.jks
+*.properties
+
+# Ignore binaries, temporary build files
+/out/
+bin/
+
+# Ignore captures, screenshots, test outputs
+captures/
+
+# ==============================
+# ✅ Keep only important files
+# ==============================
+
+# Allow README and source files
+!README.md
+!app/src/
+!app/build.gradle
+!build.gradle
+!settings.gradle
+!gradle.properties
