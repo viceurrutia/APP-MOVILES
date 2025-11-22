@@ -1,5 +1,6 @@
 package com.example.gameforgamers.model
 import java.io.Serializable
+
 data class Game(
     val id:Int,
     val title:String,
@@ -8,8 +9,9 @@ data class Game(
     val genre:String,
     val durationHours:Int,
     val shortDesc:String,
-    val originalPrice:String?=null,
-    val discountPercent:Int=0
+    val originalPrice:String? = null,
+    val discountPercent:Int = 0,
+    var stock:Int = 10          // 🔹 NUEVO CAMPO
 ): Serializable {
     fun isOffer():Boolean = (originalPrice!=null && discountPercent>0)
     fun offerPrice(): String? {
