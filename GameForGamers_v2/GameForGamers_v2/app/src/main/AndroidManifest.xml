@@ -23,12 +23,19 @@
             android:name=".RegisterActivity"
             android:exported="false" />
 
-        <!-- 👇 AdminActivity como actividad normal, NO anidada -->
         <activity
             android:name=".AdminActivity"
             android:exported="false" />
 
-        <!-- 👇 Activity de inicio de la app (tiene el LAUNCHER) -->
+        <activity
+            android:name=".AddGameActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".IncomeActivity"
+            android:exported="false" />
+
+        <!-- Activity de inicio de la app -->
         <activity
             android:name=".LoginActivity"
             android:exported="true">

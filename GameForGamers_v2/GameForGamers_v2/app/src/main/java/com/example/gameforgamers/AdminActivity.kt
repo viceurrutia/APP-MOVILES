@@ -1,5 +1,6 @@
 package com.example.gameforgamers
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -36,12 +37,16 @@ class AdminActivity : AppCompatActivity() {
 
         // Más adelante conectamos estos botones
         b.btnAddGame.setOnClickListener {
-            // TODO: abrir AddGameActivity
+            val i = Intent(this, AddGameActivity::class.java)
+            startActivity(i)
         }
 
+
         b.btnIngresos.setOnClickListener {
-            // TODO: abrir IncomeActivity
+            val i = Intent(this, IncomeActivity::class.java)
+            startActivity(i)
         }
+
     }
 
     override fun onResume() {
