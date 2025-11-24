@@ -10,6 +10,28 @@ class RegisterActivity: AppCompatActivity(){
   val nombre=b.etNombre.text.toString().trim(); val apellido=b.etApellido.text.toString().trim()
   val rut=b.etRut.text.toString().trim(); val region=b.etRegion.text.toString().trim(); val comuna=b.etComuna.text.toString().trim()
   val email=b.etEmail.text.toString().trim(); val pass=b.etPassword.text.toString()
+
+  var valido = true
+
+  // Validar nombre
+  if (!validarNombre(nombre)) {
+   b.etNombre.error = "Nombre inválido. Use solo letras."
+   valido = false
+  } else {
+   b.etNombre.error = null
+  }
+
+  // Validar apellido
+  if (!validarApellido(apellido)) {
+   b.etApellido.error = "Apellido inválido. Use solo letras."
+   valido = false
+  } else {
+   b.etApellido.error = null
+  }
+
+  if (!valido) return@setOnClickListener
+  // TODO: guardar usuario
+
   if(nombre.isEmpty()||apellido.isEmpty()||rut.isEmpty()||region.isEmpty()||comuna.isEmpty()||email.isEmpty()||pass.length<6){ Toast.makeText(this,"Completa todos los campos (contraseña min 6)",Toast.LENGTH_SHORT).show(); return@setOnClickListener }
   val emailRx=Regex("^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+$"); if(!emailRx.matches(email)){ Toast.makeText(this,"Correo inválido",Toast.LENGTH_SHORT).show(); return@setOnClickListener }
   if(!isValidRut(rut)){ Toast.makeText(this,"RUT inválido",Toast.LENGTH_SHORT).show(); return@setOnClickListener }
@@ -24,5 +46,23 @@ class RegisterActivity: AppCompatActivity(){
   for(c in body.reversed()){ sum += (c.digitToInt())*mult; mult = if(mult==7) 2 else mult+1 }
   val res=11-(sum%11); val dvCalc= when(res){ 11 -> '0'; 10 -> 'K'; else -> ('0'+res) }
   return dv==dvCalc
+ }
+ private fun validarNombre(nombre: String): Boolean {
+  if (nombre.isBlank()) return false
+  if (nombre.length < 2) return false
+
+  // Solo letras, espacios opcionales, admite tildes y ñ
+  val regex = Regex("^[A-Za-zÁÉÍÓÚáéíóúÑñ ]+$")
+
+  return regex.matches(nombre.trim())
+ }
+
+ private fun validarApellido(apellido: String): Boolean {
+  if (apellido.isBlank()) return false
+  if (apellido.length < 2) return false
+
+  val regex = Regex("^[A-Za-zÁÉÍÓÚáéíóúÑñ ]+$")
+
+  return regex.matches(apellido.trim())
  }
 }
