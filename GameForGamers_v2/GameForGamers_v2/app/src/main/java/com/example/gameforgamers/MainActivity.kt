@@ -7,9 +7,11 @@ import android.view.View
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.gameforgamers.databinding.ActivityMainBinding
 import com.example.gameforgamers.model.Game
+import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity() {
 
@@ -21,6 +23,7 @@ class MainActivity : AppCompatActivity() {
   b = ActivityMainBinding.inflate(layoutInflater)
   setContentView(b.root)
 
+  // Toolbar + Drawer
   setSupportActionBar(b.toolbar)
   toggle = ActionBarDrawerToggle(
    this,
@@ -32,6 +35,7 @@ class MainActivity : AppCompatActivity() {
   b.drawerLayout.addDrawerListener(toggle)
   toggle.syncState()
 
+  // Menú lateral
   b.navView.setNavigationItemSelectedListener { item: MenuItem ->
    when (item.itemId) {
     R.id.nav_home -> {
@@ -59,32 +63,48 @@ class MainActivity : AppCompatActivity() {
    true
   }
 
-  // LayoutManagers
+  // LayoutManagers de los RecyclerView
   b.recyclerOffers.layoutManager =
    LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
   b.recyclerCatalog.layoutManager = LinearLayoutManager(this)
 
-  // Carga inicial de listas
+  // Cargar datos iniciales
   loadGames()
+  loadWeather()
  }
 
  override fun onResume() {
   super.onResume()
-  // Por si cambió algo (ej: admin agregó juegos)
+  // Por si el admin agregó juegos nuevos
   loadGames()
+  loadWeather()
  }
 
  private fun loadGames() {
   val allGames: List<Game> = GameRepository.all()
 
-  // Ofertas: juegos que tienen precio original y descuento
+  // Ofertas: solo los que tienen oferta
   val offers = allGames.filter { it.isOffer() }
 
-  // Catálogo: todos los demás (NO oferta)
+  // Catálogo: todos los que NO son oferta
   val catalog = allGames.filter { !it.isOffer() }
 
   b.recyclerOffers.adapter = GameAdapter(offers) { openDetail(it) }
   b.recyclerCatalog.adapter = GameAdapter(catalog) { openDetail(it) }
+ }
+
+ private fun loadWeather() {
+  lifecycleScope.launch {
+   val temp = WeatherRepository.getCurrentTempCelsius()
+   val cityLabel = "Santiago"
+
+   if (temp != null) {
+    val t = temp.toInt()
+    b.tvWeather.text = "$cityLabel 🌤 ${t}°C"
+   } else {
+    b.tvWeather.text = "$cityLabel 🌥 --°C"
+   }
+  }
  }
 
 
