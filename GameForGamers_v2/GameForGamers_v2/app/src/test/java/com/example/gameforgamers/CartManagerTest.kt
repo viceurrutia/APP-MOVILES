@@ -27,7 +27,7 @@ class CartManagerTest {
 
     @Before
     fun setUp() {
-        // Muy importante limpiar el carrito antes de cada test
+        // Limpiar el carrito antes de cada test
         CartManager.clear()
     }
 
@@ -46,14 +46,21 @@ class CartManagerTest {
     }
 
     @Test
-    fun `dec debe disminuir la cantidad y eliminar si llega a 0 o 1`() {
+    fun `dec debe disminuir la cantidad y eliminar cuando llega a 0`() {
         val g = game(id = 1, price = "$10.000")
 
         CartManager.add(g) // q = 1
         CartManager.add(g) // q = 2
 
-        CartManager.dec(g) // q = 1, debería eliminar
-        val all = CartManager.all()
+        // Primer dec: de 2 -> 1 (debe seguir en el carrito)
+        CartManager.dec(g)
+        var all = CartManager.all()
+        assertEquals(1, all.size)
+        assertEquals(1, all[0].second)
+
+        // Segundo dec: de 1 -> 0 (debe eliminarse)
+        CartManager.dec(g)
+        all = CartManager.all()
         assertTrue(all.isEmpty())
     }
 
