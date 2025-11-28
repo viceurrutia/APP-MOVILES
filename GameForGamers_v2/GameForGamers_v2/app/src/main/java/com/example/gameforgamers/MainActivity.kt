@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
@@ -53,6 +54,10 @@ class MainActivity : AppCompatActivity() {
     R.id.nav_cart -> {
      startActivity(Intent(this, CartActivity::class.java))
     }
+    // 👇 NUEVO: abrir EditProfileActivity
+    R.id.nav_profile -> {
+     startActivity(Intent(this, EditProfileActivity::class.java))
+    }
     R.id.nav_logout -> {
      Prefs.setLogged(this, null)
      startActivity(Intent(this, LoginActivity::class.java))
@@ -62,6 +67,7 @@ class MainActivity : AppCompatActivity() {
    b.drawerLayout.closeDrawer(GravityCompat.START)
    true
   }
+
 
   // LayoutManagers de los RecyclerView
   b.recyclerOffers.layoutManager =
@@ -80,17 +86,32 @@ class MainActivity : AppCompatActivity() {
   loadWeather()
  }
 
+ /**
+  * AHORA: carga los juegos desde el BACKEND (GameBackendRepository)
+  */
  private fun loadGames() {
-  val allGames: List<Game> = GameRepository.all()
+  lifecycleScope.launch {
+   try {
+    // 🚀 Llamada al microservicio
+    val allGames: List<Game> = GameBackendRepository.getAll()
 
-  // Ofertas: solo los que tienen oferta
-  val offers = allGames.filter { it.isOffer() }
+    // Ofertas: solo los que tienen oferta
+    val offers = allGames.filter { it.isOffer() }
 
-  // Catálogo: todos los que NO son oferta
-  val catalog = allGames.filter { !it.isOffer() }
+    // Catálogo: todos los que NO son oferta
+    val catalog = allGames.filter { !it.isOffer() }
 
-  b.recyclerOffers.adapter = GameAdapter(offers) { openDetail(it) }
-  b.recyclerCatalog.adapter = GameAdapter(catalog) { openDetail(it) }
+    b.recyclerOffers.adapter = GameAdapter(offers) { openDetail(it) }
+    b.recyclerCatalog.adapter = GameAdapter(catalog) { openDetail(it) }
+   } catch (e: Exception) {
+    e.printStackTrace()
+    Toast.makeText(
+     this@MainActivity,
+     "Error al cargar juegos del servidor",
+     Toast.LENGTH_LONG
+    ).show()
+   }
+  }
  }
 
  private fun loadWeather() {
@@ -106,7 +127,6 @@ class MainActivity : AppCompatActivity() {
    }
   }
  }
-
 
  private fun openDetail(g: Game) {
   val i = Intent(this, GameDetailActivity::class.java)

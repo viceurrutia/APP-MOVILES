@@ -6,9 +6,8 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 object GameBackendRepository {
 
-    // ⚠️ Cambia esto por la URL real de tu backend Spring Boot
-    // Si lo corres en tu PC y usas el emulador: "http://10.0.2.2:8080"
-    private const val BASE_URL = "http://10.0.2.2:8080"
+    // IMPORTANTE: que termine en /
+    private const val BASE_URL = "http://10.0.2.2:8080/"
 
     private val api: GameBackendApi by lazy {
         val retrofit = Retrofit.Builder()
@@ -23,7 +22,10 @@ object GameBackendRepository {
 
     suspend fun create(game: Game): Game = api.createGame(game)
 
-    suspend fun update(game: Game): Game = api.updateGame(game.id, game)
+    suspend fun update(game: Game): Game =
+        api.updateGame(game.id, game)
 
-    suspend fun delete(gameId: Int) = api.deleteGame(gameId)
+    suspend fun delete(game: Game) {
+        api.deleteGame(game.id)
+    }
 }

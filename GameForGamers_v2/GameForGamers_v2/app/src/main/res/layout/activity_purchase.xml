@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:padding="16dp"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <!-- Texto: Nombre -->
+        <EditText
+            android:id="@+id/etName"
+            android:hint="Nombre completo"
+            android:inputType="textPersonName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <!-- Texto: Dirección -->
+        <EditText
+            android:id="@+id/etAddress"
+            android:hint="Dirección"
+            android:inputType="textPostalAddress"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp" />
+
+        <!-- Texto: Correo -->
+        <EditText
+            android:id="@+id/etEmail"
+            android:hint="Correo electrónico"
+            android:inputType="textEmailAddress"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp" />
+
+        <!-- Numérico: Teléfono -->
+        <EditText
+            android:id="@+id/etPhone"
+            android:hint="Teléfono"
+            android:inputType="number"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp" />
+
+        <!-- Fecha: con DatePicker -->
+        <EditText
+            android:id="@+id/etDate"
+            android:hint="Fecha de entrega"
+            android:focusable="false"
+            android:inputType="date"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp" />
+
+        <!-- Spinner: Método de pago -->
+        <Spinner
+            android:id="@+id/spPaymentMethod"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp" />
+
+        <!-- RadioButtons: Tipo de entrega -->
+        <RadioGroup
+            android:id="@+id/rgDeliveryType"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp">
+
+            <RadioButton
+                android:id="@+id/rbPickup"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Retiro en tienda" />
+
+            <RadioButton
+                android:id="@+id/rbDelivery"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Envío a domicilio"
+                android:layout_marginStart="16dp" />
+        </RadioGroup>
+
+        <!-- Checkbox: Términos -->
+        <CheckBox
+            android:id="@+id/cbTerms"
+            android:text="Acepto términos y condiciones"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp" />
+
+        <!-- Botón confirmar -->
+        <Button
+            android:id="@+id/btnConfirmPurchase"
+            android:text="Confirmar compra"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp" />
+
+    </LinearLayout>
+</ScrollView>

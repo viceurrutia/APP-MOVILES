@@ -42,7 +42,7 @@ class LoginActivity : AppCompatActivity() {
     return@setOnClickListener
    }
 
-   // 2) USUARIO NORMAL (usa Prefs como antes)
+   // 2) USUARIO NORMAL (usa Prefs)
    if (Prefs.check(this, email, pass)) {
     Prefs.setLogged(this, email)
     startActivity(Intent(this, MainActivity::class.java))
@@ -55,6 +55,11 @@ class LoginActivity : AppCompatActivity() {
   // BOTÓN IR A REGISTRO
   b.btnGoRegister.setOnClickListener {
    startActivity(Intent(this, RegisterActivity::class.java))
+  }
+
+  // BOTÓN ¿OLVIDASTE TU CONTRASEÑA?
+  b.btnForgotPassword.setOnClickListener {
+   startActivity(Intent(this, ForgotPasswordActivity::class.java))
   }
  }
 }

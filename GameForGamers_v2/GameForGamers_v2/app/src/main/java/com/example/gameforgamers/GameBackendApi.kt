@@ -10,19 +10,19 @@ import retrofit2.http.Path
 
 interface GameBackendApi {
 
-    @GET("/games")
+    @GET("api/games")
     suspend fun getAllGames(): List<Game>
 
-    @POST("/games")
+    @POST("api/games")
     suspend fun createGame(@Body game: Game): Game
 
-    @PUT("/games/{id}")
+    @PUT("api/games/{id}")
     suspend fun updateGame(
         @Path("id") id: Int,
         @Body game: Game
     ): Game
 
-    @DELETE("/games/{id}")
+    @DELETE("api/games/{id}")
     suspend fun deleteGame(
         @Path("id") id: Int
     )

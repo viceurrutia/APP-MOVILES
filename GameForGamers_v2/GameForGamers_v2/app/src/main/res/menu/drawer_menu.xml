@@ -1,1 +1,27 @@
-<menu xmlns:android="http://schemas.android.com/apk/res/android"><item android:id="@+id/nav_home" android:title="Inicio"/><item android:id="@+id/nav_offers" android:title="Ofertas"/><item android:id="@+id/nav_catalog" android:title="Catálogo"/><item android:id="@+id/nav_cart" android:title="Carrito"/><item android:id="@+id/nav_logout" android:title="Cerrar sesión"/></menu>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/nav_home"
+        android:title="Inicio" />
+
+    <item
+        android:id="@+id/nav_offers"
+        android:title="Ofertas" />
+
+    <item
+        android:id="@+id/nav_catalog"
+        android:title="Catálogo" />
+
+    <item
+        android:id="@+id/nav_cart"
+        android:title="Carrito" />
+
+    <item
+        android:id="@+id/nav_profile"
+        android:title="Mi perfil" />
+
+    <item
+        android:id="@+id/nav_logout"
+        android:title="Cerrar sesión" />
+
+</menu>

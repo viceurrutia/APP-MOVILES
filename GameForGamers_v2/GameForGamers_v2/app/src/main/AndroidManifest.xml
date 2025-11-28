@@ -2,12 +2,13 @@
     package="com.example.gameforgamers">
 
     <uses-permission android:name="android.permission.INTERNET" />
-
+    <uses-permission android:name="android.permission.VIBRATE" />
     <application
         android:allowBackup="true"
         android:label="GameForGamers"
         android:supportsRtl="true"
-        android:theme="@style/Theme.GameForGamers">
+        android:theme="@style/Theme.GameForGamers"
+        android:usesCleartextTraffic="true">
 
         <activity
             android:name=".CartActivity"
@@ -34,6 +35,10 @@
             android:exported="false" />
 
         <activity
+            android:name=".PurchaseActivity"
+            android:exported="false" />
+
+        <activity
             android:name=".IncomeActivity"
             android:exported="false" />
 
@@ -48,6 +53,14 @@
             </intent-filter>
 
         </activity>
+
+        <!-- ForgotPasswordActivity va FUERA del LoginActivity -->
+        <activity
+            android:name=".ForgotPasswordActivity"
+            android:exported="false" />
+        <activity
+            android:name=".EditProfileActivity"
+            android:exported="false" />
 
     </application>
 </manifest>

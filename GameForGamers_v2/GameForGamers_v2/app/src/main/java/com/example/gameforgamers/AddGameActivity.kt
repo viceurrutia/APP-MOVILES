@@ -3,8 +3,10 @@ package com.example.gameforgamers
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
 import com.example.gameforgamers.databinding.ActivityAddGameBinding
 import com.example.gameforgamers.model.Game
+import kotlinx.coroutines.launch
 
 class AddGameActivity : AppCompatActivity() {
 
@@ -34,23 +36,44 @@ class AddGameActivity : AppCompatActivity() {
                 return@setOnClickListener
             }
 
+            // id = 0 porque el backend genera el id real
             val game = Game(
-                id = GameRepository.nextId(),
+                id = 0,
                 title = title,
                 price = price,
                 drawableName = drawable,
                 genre = genre,
                 durationHours = hours,
                 shortDesc = desc,
-                // No seteamos oferta: originalPrice null y discountPercent 0
                 originalPrice = null,
                 discountPercent = 0,
                 stock = stock
             )
 
-            GameRepository.add(game)
-            Toast.makeText(this, "Juego añadido correctamente", Toast.LENGTH_SHORT).show()
-            finish() // volver a AdminActivity
+            lifecycleScope.launch {
+                try {
+                    val saved = GameBackendRepository.create(game)
+
+                    // (opcional) mantener el repo local sincronizado
+                    GameRepository.add(saved)
+
+                    Toast.makeText(
+                        this@AddGameActivity,
+                        "Juego añadido en el servidor (id=${saved.id})",
+                        Toast.LENGTH_SHORT
+                    ).show()
+
+                    setResult(RESULT_OK)
+                    finish()
+                } catch (e: Exception) {
+                    e.printStackTrace()
+                    Toast.makeText(
+                        this@AddGameActivity,
+                        "Error al guardar juego en el servidor",
+                        Toast.LENGTH_LONG
+                    ).show()
+                }
+            }
         }
     }
 }

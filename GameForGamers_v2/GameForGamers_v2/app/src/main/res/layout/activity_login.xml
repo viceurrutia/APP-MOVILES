@@ -4,4 +4,11 @@
 <EditText android:id="@+id/etPassword" android:hint="Contraseña" android:inputType="textPassword" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="8dp"/>
 <Button android:id="@+id/btnLogin" android:text="Iniciar sesión" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="12dp"/>
 <Button android:id="@+id/btnGoRegister" android:text="Crear cuenta" android:layout_width="match_parent" android:layout_height="wrap_content" android:layout_marginTop="8dp"/>
+    <Button
+        android:id="@+id/btnForgotPassword"
+        android:text="¿Olvidaste tu contraseña?"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp" />
+
 </LinearLayout>
