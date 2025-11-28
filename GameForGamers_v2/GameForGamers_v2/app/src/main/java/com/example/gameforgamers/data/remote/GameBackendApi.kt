@@ -1,11 +1,11 @@
-package com.example.gameforgamers
+package com.example.gameforgamers.data.remote
 
 import com.example.gameforgamers.model.Game
 import retrofit2.http.Body
+import retrofit2.http.DELETE
 import retrofit2.http.GET
 import retrofit2.http.POST
 import retrofit2.http.PUT
-import retrofit2.http.DELETE
 import retrofit2.http.Path
 
 interface GameBackendApi {

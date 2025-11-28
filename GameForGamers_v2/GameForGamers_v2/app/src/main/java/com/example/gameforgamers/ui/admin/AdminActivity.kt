@@ -1,4 +1,4 @@
-package com.example.gameforgamers
+package com.example.gameforgamers.ui.admin
 
 import android.content.Intent
 import android.os.Bundle
@@ -6,6 +6,10 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.gameforgamers.ui.admin.AddGameActivity
+import com.example.gameforgamers.ui.admin.AdminGameAdapter
+import com.example.gameforgamers.ui.admin.IncomeActivity
+import com.example.gameforgamers.data1.GameBackendRepository
 import com.example.gameforgamers.databinding.ActivityAdminBinding
 import com.example.gameforgamers.model.Game
 import kotlinx.coroutines.launch

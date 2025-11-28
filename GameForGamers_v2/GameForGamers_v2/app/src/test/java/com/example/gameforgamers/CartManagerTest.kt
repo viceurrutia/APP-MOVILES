@@ -1,5 +1,6 @@
 package com.example.gameforgamers
 
+import com.example.gameforgamers.data1.CartManager
 import com.example.gameforgamers.model.Game
 import org.junit.Assert.*
 import org.junit.Before

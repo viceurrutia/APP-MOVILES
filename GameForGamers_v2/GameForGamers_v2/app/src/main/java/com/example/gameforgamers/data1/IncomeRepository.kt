@@ -1,4 +1,4 @@
-package com.example.gameforgamers
+package com.example.gameforgamers.data1
 
 import com.example.gameforgamers.model.Income
 

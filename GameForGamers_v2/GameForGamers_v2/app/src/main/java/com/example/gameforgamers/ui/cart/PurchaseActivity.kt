@@ -1,20 +1,21 @@
-package com.example.gameforgamers
+package com.example.gameforgamers.ui.cart
 
+import android.R
 import android.app.DatePickerDialog
+import android.os.Build
 import android.os.Bundle
+import android.os.VibrationEffect
+import android.os.Vibrator
+import android.os.VibratorManager
 import android.util.Patterns
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.example.gameforgamers.data1.CartManager
 import com.example.gameforgamers.databinding.ActivityPurchaseBinding
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
-import android.content.Context
-import android.os.Build
-import android.os.VibrationEffect
-import android.os.Vibrator
-import android.os.VibratorManager
 
 class PurchaseActivity : AppCompatActivity() {
 
@@ -35,10 +36,10 @@ class PurchaseActivity : AppCompatActivity() {
         )
         val adapter = ArrayAdapter(
             this,
-            android.R.layout.simple_spinner_item,
+            R.layout.simple_spinner_item,
             paymentMethods
         )
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
+        adapter.setDropDownViewResource(R.layout.simple_spinner_dropdown_item)
         b.spPaymentMethod.adapter = adapter
 
         // Fecha: abrir DatePicker al tocar el EditText
@@ -74,11 +75,11 @@ class PurchaseActivity : AppCompatActivity() {
     // 🔹 función para vibrar cuando la compra se completa
     private fun vibrateSuccess() {
         val vibrator = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
-            val vm = getSystemService(Context.VIBRATOR_MANAGER_SERVICE) as VibratorManager
+            val vm = getSystemService(VIBRATOR_MANAGER_SERVICE) as VibratorManager
             vm.defaultVibrator
         } else {
             @Suppress("DEPRECATION")
-            getSystemService(Context.VIBRATOR_SERVICE) as Vibrator
+            getSystemService(VIBRATOR_SERVICE) as Vibrator
         }
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {

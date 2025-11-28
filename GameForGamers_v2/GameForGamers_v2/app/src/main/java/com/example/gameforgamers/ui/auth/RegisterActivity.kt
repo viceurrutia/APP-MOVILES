@@ -1,9 +1,11 @@
-package com.example.gameforgamers
+package com.example.gameforgamers.ui.auth
 
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.example.gameforgamers.data1.Prefs
 import com.example.gameforgamers.databinding.ActivityRegisterBinding
+import kotlin.text.iterator
 
 class RegisterActivity : AppCompatActivity() {
 

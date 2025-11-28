@@ -1,15 +1,16 @@
-package com.example.gameforgamers
+package com.example.gameforgamers.ui.game
 
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.text.SpannableString
 import android.text.style.StrikethroughSpan
 import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.example.gameforgamers.data1.CartManager
 import com.example.gameforgamers.databinding.ActivityGameDetailBinding
 import com.example.gameforgamers.model.Game
-import android.content.Intent
-import android.net.Uri
 
 class GameDetailActivity : AppCompatActivity() {
 

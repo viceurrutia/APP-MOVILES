@@ -1,4 +1,4 @@
-package com.example.gameforgamers
+package com.example.gameforgamers.model
 
 data class WeatherMain(
     val temp: Float

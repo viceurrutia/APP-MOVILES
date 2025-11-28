@@ -1,6 +1,7 @@
-package com.example.gameforgamers
+package com.example.gameforgamers.data1
 
-import com.example.gameforgamers.WeatherResponse
+import com.example.gameforgamers.data.remote.WeatherApi
+import com.example.gameforgamers.model.WeatherResponse
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 

@@ -1,9 +1,11 @@
-package com.example.gameforgamers
+package com.example.gameforgamers.ui.admin
 
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
+import com.example.gameforgamers.data1.GameBackendRepository
+import com.example.gameforgamers.data1.GameRepository
 import com.example.gameforgamers.databinding.ActivityAddGameBinding
 import com.example.gameforgamers.model.Game
 import kotlinx.coroutines.launch

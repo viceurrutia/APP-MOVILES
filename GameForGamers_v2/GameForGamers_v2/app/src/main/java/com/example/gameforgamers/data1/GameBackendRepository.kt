@@ -1,5 +1,6 @@
-package com.example.gameforgamers
+package com.example.gameforgamers.data1
 
+import com.example.gameforgamers.data.remote.GameBackendApi
 import com.example.gameforgamers.model.Game
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory

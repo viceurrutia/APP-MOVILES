@@ -1,4 +1,4 @@
-package com.example.gameforgamers
+package com.example.gameforgamers.ui.main
 
 import android.content.Intent
 import android.os.Bundle
@@ -10,8 +10,17 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.gameforgamers.ui.cart.CartActivity
+import com.example.gameforgamers.ui.main.EditProfileActivity
+import com.example.gameforgamers.ui.game.GameAdapter
+import com.example.gameforgamers.ui.game.GameDetailActivity
+import com.example.gameforgamers.R
+import com.example.gameforgamers.data1.GameBackendRepository
+import com.example.gameforgamers.data1.Prefs
+import com.example.gameforgamers.data1.WeatherRepository
 import com.example.gameforgamers.databinding.ActivityMainBinding
 import com.example.gameforgamers.model.Game
+import com.example.gameforgamers.ui.auth.LoginActivity
 import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity() {
@@ -27,11 +36,11 @@ class MainActivity : AppCompatActivity() {
   // Toolbar + Drawer
   setSupportActionBar(b.toolbar)
   toggle = ActionBarDrawerToggle(
-   this,
-   b.drawerLayout,
-   b.toolbar,
-   R.string.app_name,
-   R.string.app_name
+      this,
+      b.drawerLayout,
+      b.toolbar,
+      R.string.app_name,
+      R.string.app_name
   )
   b.drawerLayout.addDrawerListener(toggle)
   toggle.syncState()
@@ -71,7 +80,7 @@ class MainActivity : AppCompatActivity() {
 
   // LayoutManagers de los RecyclerView
   b.recyclerOffers.layoutManager =
-   LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
+      LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
   b.recyclerCatalog.layoutManager = LinearLayoutManager(this)
 
   // Cargar datos iniciales

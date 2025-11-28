@@ -11,40 +11,40 @@
         android:usesCleartextTraffic="true">
 
         <activity
-            android:name=".CartActivity"
+            android:name=".ui.cart.CartActivity"
             android:exported="false" />
 
         <activity
-            android:name=".GameDetailActivity"
+            android:name=".ui.game.GameDetailActivity"
             android:exported="false" />
 
         <activity
-            android:name=".MainActivity"
+            android:name=".ui.main.MainActivity"
             android:exported="false" />
 
         <activity
-            android:name=".RegisterActivity"
+            android:name=".ui.auth.RegisterActivity"
             android:exported="false" />
 
         <activity
-            android:name=".AdminActivity"
+            android:name=".ui.admin.AdminActivity"
             android:exported="false" />
 
         <activity
-            android:name=".AddGameActivity"
+            android:name=".ui.admin.AddGameActivity"
             android:exported="false" />
 
         <activity
-            android:name=".PurchaseActivity"
+            android:name=".ui.cart.PurchaseActivity"
             android:exported="false" />
 
         <activity
-            android:name=".IncomeActivity"
+            android:name=".ui.admin.IncomeActivity"
             android:exported="false" />
 
         <!-- Activity de inicio de la app -->
         <activity
-            android:name=".LoginActivity"
+            android:name=".ui.auth.LoginActivity"
             android:exported="true">
 
             <intent-filter>
@@ -56,10 +56,10 @@
 
         <!-- ForgotPasswordActivity va FUERA del LoginActivity -->
         <activity
-            android:name=".ForgotPasswordActivity"
+            android:name=".ui.auth.ForgotPasswordActivity"
             android:exported="false" />
         <activity
-            android:name=".EditProfileActivity"
+            android:name=".ui.main.EditProfileActivity"
             android:exported="false" />
 
     </application>

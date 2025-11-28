@@ -1,4 +1,4 @@
-package com.example.gameforgamers
+package com.example.gameforgamers.data1
 
 import android.content.Context
 import java.security.MessageDigest

@@ -1,4 +1,4 @@
-package com.example.gameforgamers
+package com.example.gameforgamers.ui.game
 
 import android.text.SpannableString
 import android.text.style.StrikethroughSpan
@@ -7,12 +7,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
+import com.example.gameforgamers.data1.CartManager
 import com.example.gameforgamers.databinding.ItemGameBinding
 import com.example.gameforgamers.model.Game
 
 class GameAdapter(
- private val items: List<Game>,
- private val onClick: (Game) -> Unit
+    private val items: List<Game>,
+    private val onClick: (Game) -> Unit
 ) : RecyclerView.Adapter<GameAdapter.VH>() {
 
  inner class VH(val b: ItemGameBinding) : RecyclerView.ViewHolder(b.root)

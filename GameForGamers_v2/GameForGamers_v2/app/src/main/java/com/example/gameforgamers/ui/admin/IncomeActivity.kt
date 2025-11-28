@@ -1,8 +1,10 @@
-package com.example.gameforgamers
+package com.example.gameforgamers.ui.admin
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.gameforgamers.ui.admin.IncomeAdapter
+import com.example.gameforgamers.data1.IncomeRepository
 import com.example.gameforgamers.databinding.ActivityIncomeBinding
 
 class IncomeActivity : AppCompatActivity() {

@@ -1,9 +1,14 @@
-package com.example.gameforgamers
+package com.example.gameforgamers.ui.auth
 
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.example.gameforgamers.ui.admin.AdminActivity
+import com.example.gameforgamers.ui.auth.ForgotPasswordActivity
+import com.example.gameforgamers.ui.main.MainActivity
+import com.example.gameforgamers.ui.auth.RegisterActivity
+import com.example.gameforgamers.data1.Prefs
 import com.example.gameforgamers.databinding.ActivityLoginBinding
 
 class LoginActivity : AppCompatActivity() {

@@ -1,10 +1,13 @@
-package com.example.gameforgamers
+package com.example.gameforgamers.ui.cart
 
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.gameforgamers.ui.cart.CartAdapter
+import com.example.gameforgamers.ui.cart.PurchaseActivity
+import com.example.gameforgamers.data1.CartManager
 import com.example.gameforgamers.databinding.ActivityCartBinding
 
 class CartActivity : AppCompatActivity() {
@@ -18,19 +21,19 @@ class CartActivity : AppCompatActivity() {
   setContentView(b.root)
 
   adapter = CartAdapter(
-   CartManager.all().toMutableList(),
-   onAdd = { p ->
-    CartManager.add(p.first)
-    refresh()
-   },
-   onDec = { p ->
-    CartManager.dec(p.first)
-    refresh()
-   },
-   onRemove = { p ->
-    CartManager.remove(p.first)
-    refresh()
-   }
+      CartManager.all().toMutableList(),
+      onAdd = { p ->
+          CartManager.add(p.first)
+          refresh()
+      },
+      onDec = { p ->
+          CartManager.dec(p.first)
+          refresh()
+      },
+      onRemove = { p ->
+          CartManager.remove(p.first)
+          refresh()
+      }
   )
 
   b.recyclerCart.layoutManager = LinearLayoutManager(this)

@@ -1,4 +1,4 @@
-package com.example.gameforgamers
+package com.example.gameforgamers.ui.admin
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
