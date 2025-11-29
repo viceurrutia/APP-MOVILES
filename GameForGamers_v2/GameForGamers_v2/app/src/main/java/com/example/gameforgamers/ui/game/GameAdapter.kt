@@ -12,43 +12,49 @@ import com.example.gameforgamers.databinding.ItemGameBinding
 import com.example.gameforgamers.model.Game
 
 class GameAdapter(
-    private val items: List<Game>,
-    private val onClick: (Game) -> Unit
+ private val items: List<Game>,
+ private val onClick: (Game) -> Unit
 ) : RecyclerView.Adapter<GameAdapter.VH>() {
 
  inner class VH(val b: ItemGameBinding) : RecyclerView.ViewHolder(b.root)
 
- override fun onCreateViewHolder(p: ViewGroup, v: Int): VH {
-  val b = ItemGameBinding.inflate(LayoutInflater.from(p.context), p, false)
+ override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): VH {
+  val b = ItemGameBinding.inflate(LayoutInflater.from(parent.context), parent, false)
   return VH(b)
  }
 
- override fun onBindViewHolder(h: VH, pos: Int) {
-  val g = items[pos]
-  val ctx = h.b.root.context
+ override fun onBindViewHolder(holder: VH, position: Int) {
+  val g = items[position]
+  val ctx = holder.b.root.context
 
+  // Imagen
   val id = ctx.resources.getIdentifier(g.drawableName, "drawable", ctx.packageName)
-  if (id != 0) h.b.ivGame.setImageResource(id)
+  if (id != 0) holder.b.ivGame.setImageResource(id)
 
-  h.b.tvTitle.text = g.title
+  holder.b.tvTitle.text = g.title
 
+  // Precio / oferta
   if (g.isOffer()) {
    val orig = SpannableString(g.originalPrice)
    orig.setSpan(StrikethroughSpan(), 0, orig.length, 0)
-   h.b.tvPrice.visibility = View.VISIBLE
-   h.b.tvPrice.text = orig
+   holder.b.tvPrice.visibility = View.VISIBLE
+   holder.b.tvPrice.text = orig
 
    val offer = g.offerPrice() ?: g.price
-   h.b.tvOfferPrice.visibility = View.VISIBLE
-   h.b.tvOfferPrice.text = "$offer  (-${g.discountPercent}%)"
+   holder.b.tvOfferPrice.visibility = View.VISIBLE
+   holder.b.tvOfferPrice.text = "$offer  (-${g.discountPercent}%)"
   } else {
-   h.b.tvPrice.visibility = View.VISIBLE
-   h.b.tvPrice.text = g.price
-   h.b.tvOfferPrice.visibility = View.GONE
+   holder.b.tvPrice.visibility = View.VISIBLE
+   holder.b.tvPrice.text = g.price
+   holder.b.tvOfferPrice.visibility = View.GONE
   }
 
-  // 🔹 Botón "Añadir al carrito" desde el catálogo/ofertas
-  h.b.btnAdd.setOnClickListener {
+  // Botón "Añadir al carrito"
+  holder.b.btnAdd.isEnabled = true
+  holder.b.btnAdd.alpha = 1f
+  holder.b.btnAdd.text = "Añadir al carrito"
+
+  holder.b.btnAdd.setOnClickListener {
    CartManager.add(g)
    Toast.makeText(
     ctx,
@@ -57,8 +63,8 @@ class GameAdapter(
    ).show()
   }
 
-  // 🔹 Click en la tarjeta → abrir detalle
-  h.b.root.setOnClickListener { onClick(g) }
+  // Click en la tarjeta → abrir detalle
+  holder.b.root.setOnClickListener { onClick(g) }
  }
 
  override fun getItemCount(): Int = items.size
