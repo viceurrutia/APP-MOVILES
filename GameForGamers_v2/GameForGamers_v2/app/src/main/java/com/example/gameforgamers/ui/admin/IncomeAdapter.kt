@@ -4,10 +4,10 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.gameforgamers.databinding.ItemIncomeBinding
-import com.example.gameforgamers.model.Income
+import com.example.gameforgamers.model.Purchase
 
 class IncomeAdapter(
-    private val items: List<Income>
+    private var items: List<Purchase>
 ) : RecyclerView.Adapter<IncomeAdapter.VH>() {
 
     inner class VH(val b: ItemIncomeBinding) : RecyclerView.ViewHolder(b.root)
@@ -22,10 +22,19 @@ class IncomeAdapter(
     }
 
     override fun onBindViewHolder(holder: VH, position: Int) {
-        val income = items[position]
-        holder.b.tvMonthYear.text = "${income.month} ${income.year}"
-        holder.b.tvAmount.text = "$" + "%,d".format(income.amount).replace(",", ".")
+        val p = items[position]
+
+        // Muestra el correo del cliente y la fecha
+        holder.b.tvMonthYear.text = "${p.customerEmail}\n${p.date ?: "Fecha desconocida"}"
+
+        // Muestra el total
+        holder.b.tvAmount.text = "$" + "%,d".format(p.totalAmount).replace(",", ".")
     }
 
     override fun getItemCount(): Int = items.size
+
+    fun update(newList: List<Purchase>) {
+        items = newList
+        notifyDataSetChanged()
+    }
 }
