@@ -1,6 +1,7 @@
 package com.example.gameforgamers.data.remote
 
 import com.example.gameforgamers.model.Game
+import com.example.gameforgamers.model.Purchase // 👈 Asegúrate de importar esto
 import retrofit2.http.Body
 import retrofit2.http.DELETE
 import retrofit2.http.GET
@@ -26,4 +27,11 @@ interface GameBackendApi {
     suspend fun deleteGame(
         @Path("id") id: Int
     )
+
+    // 🔽🔽 ESTO ES LO NUEVO PARA LAS VENTAS 🔽🔽
+    @GET("api/purchases")
+    suspend fun getAllPurchases(): List<Purchase>
+
+    @POST("api/purchases")
+    suspend fun createPurchase(@Body purchase: Purchase): Purchase
 }
