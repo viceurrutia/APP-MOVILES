@@ -1,69 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.gameforgamers">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.VIBRATE" />
+
     <application
         android:allowBackup="true"
-        android:label="GameForGamers"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.GameForGamers"
-        android:usesCleartextTraffic="true">
+        android:usesCleartextTraffic="true"> <activity
+        android:name=".ui.auth.LoginActivity"
+        android:exported="true">
+        <intent-filter>
+            <action android:name="android.intent.action.MAIN" />
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent-filter>
+    </activity>
 
-        <activity
-            android:name=".ui.cart.CartActivity"
-            android:exported="false" />
+        <activity android:name=".ui.auth.RegisterActivity" android:exported="false" />
+        <activity android:name=".ui.auth.ForgotPasswordActivity" android:exported="false" />
 
-        <activity
-            android:name=".ui.game.GameDetailActivity"
-            android:exported="false" />
+        <activity android:name=".ui.main.MainActivity" android:exported="false" />
+        <activity android:name=".ui.main.EditProfileActivity" android:exported="false" />
+        <activity android:name=".ui.game.GameDetailActivity" android:exported="false" />
 
-        <activity
-            android:name=".ui.main.MainActivity"
-            android:exported="false" />
+        <activity android:name=".ui.cart.CartActivity" android:exported="false" />
+        <activity android:name=".ui.cart.PurchaseActivity" android:exported="false" />
 
-        <activity
-            android:name=".ui.auth.RegisterActivity"
-            android:exported="false" />
+        <activity android:name=".ui.main.MyPurchasesActivity" android:exported="false" />
 
-        <activity
-            android:name=".ui.admin.AdminActivity"
-            android:exported="false" />
+        <activity android:name=".ui.admin.AdminActivity" android:exported="false" />
 
-        <activity
-            android:name=".ui.admin.AddGameActivity"
-            android:exported="false" />
+        <activity android:name=".ui.admin.AddGameActivity" android:exported="false" />
+        <activity android:name=".ui.admin.IncomeActivity" android:exported="false" />
 
-        <activity
-            android:name=".ui.cart.PurchaseActivity"
-            android:exported="false" />
-
-        <activity
-            android:name=".ui.admin.IncomeActivity"
-            android:exported="false" />
-
-        <!-- Activity de inicio de la app -->
-        <activity
-            android:name=".ui.auth.LoginActivity"
-            android:exported="true">
-
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-
-        </activity>
-
-        <!-- ForgotPasswordActivity va FUERA del LoginActivity -->
-        <activity
-            android:name=".ui.auth.ForgotPasswordActivity"
-            android:exported="false" />
-        <activity
-            android:name=".ui.main.EditProfileActivity"
-            android:exported="false" />
-        <activity
-            android:name=".ui.main.MyPurchasesActivity"
-            android:exported="false" />
+        <activity android:name=".ui.admin.EditGameActivity" android:exported="false" />
 
     </application>
+
 </manifest>
