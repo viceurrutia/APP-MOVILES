@@ -10,7 +10,7 @@ object GameBackendRepository {
 
     // IMPORTANTE: Recuerda que si usas emulador es 10.0.2.2
     private const val BASE_URL = "http://10.15.231.118:8080/"
-                                
+
     private val api: GameBackendApi by lazy {
         val retrofit = Retrofit.Builder()
             .baseUrl(BASE_URL)
@@ -32,6 +32,8 @@ object GameBackendRepository {
 
     // 🔽🔽 NUEVAS FUNCIONES PARA COMPRAS 🔽🔽
     suspend fun getPurchases(): List<Purchase> = api.getAllPurchases()
+
+    suspend fun getMyPurchases(email: String): List<Purchase> = api.getMyPurchases(email)
 
     suspend fun savePurchase(p: Purchase): Purchase = api.createPurchase(p)
 }
