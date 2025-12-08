@@ -17,6 +17,10 @@
         android:title="Carrito" />
 
     <item
+        android:id="@+id/nav_my_purchases"
+        android:title="Mis Compras" />
+
+    <item
         android:id="@+id/nav_profile"
         android:title="Mi perfil" />
 

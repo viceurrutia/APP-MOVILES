@@ -19,7 +19,7 @@ class IncomeActivity : AppCompatActivity() {
         b = ActivityIncomeBinding.inflate(layoutInflater)
         setContentView(b.root)
 
-        b.tvIncomeTitle.text = "Historial de Ventas (Backend)"
+        b.tvIncomeTitle.text = "Historial de Pedidos"
 
         // Iniciamos vacío
         adapter = IncomeAdapter(emptyList())

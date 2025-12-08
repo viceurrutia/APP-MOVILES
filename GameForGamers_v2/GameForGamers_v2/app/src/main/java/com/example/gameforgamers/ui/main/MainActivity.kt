@@ -63,6 +63,10 @@ class MainActivity : AppCompatActivity() {
     R.id.nav_cart -> {
      startActivity(Intent(this, CartActivity::class.java))
     }
+    R.id.nav_my_purchases -> {
+     startActivity(Intent(this, MyPurchasesActivity::class.java))
+    }
+
     // 👇 NUEVO: abrir EditProfileActivity
     R.id.nav_profile -> {
      startActivity(Intent(this, EditProfileActivity::class.java))

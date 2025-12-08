@@ -1,6 +1,5 @@
 package com.example.gameforgamers.ui.cart
 
-import android.R
 import android.app.DatePickerDialog
 import android.os.Build
 import android.os.Bundle
@@ -11,8 +10,12 @@ import android.util.Patterns
 import android.widget.ArrayAdapter
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
 import com.example.gameforgamers.data1.CartManager
+import com.example.gameforgamers.data1.GameBackendRepository
 import com.example.gameforgamers.databinding.ActivityPurchaseBinding
+import com.example.gameforgamers.model.Purchase
+import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
@@ -36,10 +39,10 @@ class PurchaseActivity : AppCompatActivity() {
         )
         val adapter = ArrayAdapter(
             this,
-            R.layout.simple_spinner_item,
+            android.R.layout.simple_spinner_item,
             paymentMethods
         )
-        adapter.setDropDownViewResource(R.layout.simple_spinner_dropdown_item)
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         b.spPaymentMethod.adapter = adapter
 
         // Fecha: abrir DatePicker al tocar el EditText
@@ -72,7 +75,6 @@ class PurchaseActivity : AppCompatActivity() {
         picker.show()
     }
 
-    // 🔹 función para vibrar cuando la compra se completa
     private fun vibrateSuccess() {
         val vibrator = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.S) {
             val vm = getSystemService(VIBRATOR_MANAGER_SERVICE) as VibratorManager
@@ -102,55 +104,21 @@ class PurchaseActivity : AppCompatActivity() {
         val isDelivery = b.rbDelivery.isChecked
         val termsAccepted = b.cbTerms.isChecked
 
-        // Nombre: mínimo 3 letras y solo letras/espacios
-        if (name.isEmpty()) {
-            b.etName.error = "Ingresa tu nombre"
-            return
-        }
-        if (name.length < 3) {
-            b.etName.error = "Nombre demasiado corto"
-            return
-        }
-        if (!name.matches(Regex("^[A-Za-zÁÉÍÓÚáéíóúÑñ ]+$"))) {
-            b.etName.error = "Solo letras y espacios"
-            return
-        }
+        // Validaciones
+        if (name.isEmpty()) { b.etName.error = "Ingresa tu nombre"; return }
+        if (name.length < 3) { b.etName.error = "Nombre demasiado corto"; return }
+        if (!name.matches(Regex("^[A-Za-zÁÉÍÓÚáéíóúÑñ ]+$"))) { b.etName.error = "Solo letras y espacios"; return }
 
-        // Dirección
-        if (address.isEmpty()) {
-            b.etAddress.error = "Ingresa tu dirección"
-            return
-        }
-        if (address.length < 5) {
-            b.etAddress.error = "Dirección demasiado corta"
-            return
-        }
+        if (address.isEmpty()) { b.etAddress.error = "Ingresa tu dirección"; return }
+        if (address.length < 5) { b.etAddress.error = "Dirección demasiado corta"; return }
 
-        // Email
-        if (email.isEmpty()) {
-            b.etEmail.error = "Ingresa tu correo"
-            return
-        }
-        if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
-            b.etEmail.error = "Correo no válido"
-            return
-        }
+        if (email.isEmpty()) { b.etEmail.error = "Ingresa tu correo"; return }
+        if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) { b.etEmail.error = "Correo no válido"; return }
 
-        // Teléfono: solo números y largo mínimo
-        if (phone.isEmpty()) {
-            b.etPhone.error = "Ingresa tu teléfono"
-            return
-        }
-        if (!phone.matches(Regex("^[0-9]+$"))) {
-            b.etPhone.error = "Solo números"
-            return
-        }
-        if (phone.length < 8) {
-            b.etPhone.error = "Teléfono inválido"
-            return
-        }
+        if (phone.isEmpty()) { b.etPhone.error = "Ingresa tu teléfono"; return }
+        if (!phone.matches(Regex("^[0-9]+$"))) { b.etPhone.error = "Solo números"; return }
+        if (phone.length < 8) { b.etPhone.error = "Teléfono inválido"; return }
 
-        // Fecha: no vacía y no pasada (formato dd/MM/yyyy)
         if (date.isEmpty()) {
             b.etDate.error = "Selecciona una fecha"
             return
@@ -176,38 +144,60 @@ class PurchaseActivity : AppCompatActivity() {
             }
         }
 
-        // Método de pago
-        if (paymentMethod == "Seleccionar...") {
-            Toast.makeText(this, "Selecciona un método de pago", Toast.LENGTH_SHORT).show()
-            return
+        if (paymentMethod == "Seleccionar...") { Toast.makeText(this, "Selecciona un método de pago", Toast.LENGTH_SHORT).show(); return }
+        if (!isPickup && !isDelivery) { Toast.makeText(this, "Selecciona tipo de entrega", Toast.LENGTH_SHORT).show(); return }
+        if (!termsAccepted) { Toast.makeText(this, "Debes aceptar los términos y condiciones", Toast.LENGTH_SHORT).show(); return }
+
+        // 🚀 CONEXIÓN MEJORADA AL BACKEND
+        lifecycleScope.launch {
+            try {
+                b.btnConfirmPurchase.isEnabled = false
+                b.btnConfirmPurchase.text = "Procesando..."
+
+                val total = CartManager.total()
+
+                // 🆕 1. Generamos el resumen de items
+                val itemsList = CartManager.all()
+                // Crea texto tipo: "Zelda TOTK x1, Mario Wonder x2"
+                val resumen = itemsList.joinToString(", ") { pair ->
+                    "${pair.first.title} x${pair.second}"
+                }
+
+                // 🆕 2. Sacamos la primera imagen para mostrar de portada
+                // Si no hay juegos, cadena vacía
+                val primeraImagen = itemsList.firstOrNull()?.first?.drawableName ?: ""
+
+                // 3. Creamos la compra con los nuevos datos
+                val purchase = Purchase(
+                    totalAmount = total,
+                    customerEmail = email,
+                    itemsInfo = resumen,      // ✅ Enviamos el texto
+                    imageCode = primeraImagen // ✅ Enviamos la imagen
+                )
+
+                // 4. Enviamos al servidor
+                GameBackendRepository.savePurchase(purchase)
+
+                Toast.makeText(
+                    this@PurchaseActivity,
+                    "Compra registrada exitosamente",
+                    Toast.LENGTH_LONG
+                ).show()
+
+                vibrateSuccess()
+                CartManager.clear()
+                finish()
+
+            } catch (e: Exception) {
+                e.printStackTrace()
+                b.btnConfirmPurchase.isEnabled = true
+                b.btnConfirmPurchase.text = "Confirmar compra"
+                Toast.makeText(
+                    this@PurchaseActivity,
+                    "Error al conectar con el servidor. Intenta de nuevo.",
+                    Toast.LENGTH_LONG
+                ).show()
+            }
         }
-
-        // Tipo de entrega
-        if (!isPickup && !isDelivery) {
-            Toast.makeText(this, "Selecciona tipo de entrega", Toast.LENGTH_SHORT).show()
-            return
-        }
-
-        // Términos
-        if (!termsAccepted) {
-            Toast.makeText(this, "Debes aceptar los términos y condiciones", Toast.LENGTH_SHORT)
-                .show()
-            return
-        }
-
-        val entrega = if (isPickup) "Retiro en tienda" else "Envío a domicilio"
-
-        Toast.makeText(
-            this,
-            "Compra realizada con éxito\n$entrega - $paymentMethod\nFecha: $date",
-            Toast.LENGTH_LONG
-        ).show()
-
-        // 🔹 Vibración de éxito (recurso nativo)
-        vibrateSuccess()
-
-        // Vaciar carrito y cerrar
-        CartManager.clear()
-        finish()
     }
 }
