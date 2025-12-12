@@ -39,7 +39,7 @@
         <activity android:name=".ui.admin.IncomeActivity" android:exported="false" />
 
         <activity android:name=".ui.admin.EditGameActivity" android:exported="false" />
-
+        <activity android:name=".ui.admin.UserListActivity" android:exported="false" />
     </application>
 
 </manifest>

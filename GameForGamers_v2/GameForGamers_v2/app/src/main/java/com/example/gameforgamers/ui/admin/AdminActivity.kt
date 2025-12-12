@@ -29,7 +29,6 @@ class AdminActivity : AppCompatActivity() {
 
         // Variables de control
         val isEditor = (role == "EDITOR")   // Admin 2
-        val isSupport = (role == "SUPPORT") // Admin 3 (Nuevo)
 
         // 2. Configuramos la interfaz según el rol
         when (role) {
@@ -40,22 +39,23 @@ class AdminActivity : AppCompatActivity() {
                 b.btnIngresos.visibility = View.GONE
             }
             "SUPPORT" -> {
-                // 🆕 Admin 3: Soporte. Ve "Ingresos" pero NO "Agregar".
+                // Admin 3: Soporte. Ve "Ingresos" pero NO "Agregar".
                 b.tvAdminTitle.text = "Panel de Soporte (Solo Lectura)"
-                b.btnAddGame.visibility = View.GONE    // No puede crear
-                b.btnIngresos.visibility = View.VISIBLE // Sí puede ver ventas
+                b.btnAddGame.visibility = View.GONE
+                b.btnIngresos.visibility = View.VISIBLE
+                b.btnIngresos.text = "Ver Usuarios" // Cambia el texto
             }
             else -> {
                 // Admin 1 (Owner): Ve todo.
                 b.tvAdminTitle.text = "Panel de Dueño"
                 b.btnAddGame.visibility = View.VISIBLE
                 b.btnIngresos.visibility = View.VISIBLE
+                b.btnIngresos.text = "Ingresos"
             }
         }
 
         // 3. Configuramos el Adapter
-        // IMPORTANTE: 'isEditor' solo es true si es el Admin 2.
-        // Si es Soporte (SUPPORT), 'isEditor' es false, por lo que NO verá botones de borrar/editar.
+        // Si es Soporte, isEditor es false, así que no verá botones de borrar/editar.
         adapter = AdminGameAdapter(
             mutableListOf(),
             isEditor = isEditor,
@@ -72,8 +72,15 @@ class AdminActivity : AppCompatActivity() {
             startActivity(Intent(this, AddGameActivity::class.java))
         }
 
+        // 🛑 CORRECCIÓN IMPORTANTE AQUÍ 👇
         b.btnIngresos.setOnClickListener {
-            startActivity(Intent(this, IncomeActivity::class.java))
+            if (role == "SUPPORT") {
+                // Si es Soporte, quiere ver la lista de usuarios
+                startActivity(Intent(this, UserListActivity::class.java))
+            } else {
+                // Si es el Dueño, quiere ver el dinero (Income)
+                startActivity(Intent(this, IncomeActivity::class.java))
+            }
         }
 
         // Cargamos datos

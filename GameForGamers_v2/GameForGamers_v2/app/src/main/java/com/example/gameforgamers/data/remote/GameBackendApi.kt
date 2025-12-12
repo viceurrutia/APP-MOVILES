@@ -48,4 +48,11 @@ interface GameBackendApi {
     // 3. Registrar una compra nueva
     @POST("api/purchases")
     suspend fun createPurchase(@Body purchase: Purchase): Purchase
+
+    // 🆕 GESTIÓN DE USUARIOS
+    @GET("api/users")
+    suspend fun getAllUsers(): List<com.example.gameforgamers.model.AppUser>
+
+    @POST("api/users")
+    suspend fun registerUser(@Body user: com.example.gameforgamers.model.AppUser): com.example.gameforgamers.model.AppUser
 }

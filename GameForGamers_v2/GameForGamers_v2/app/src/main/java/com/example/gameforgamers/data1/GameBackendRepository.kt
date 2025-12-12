@@ -41,4 +41,7 @@ object GameBackendRepository {
     suspend fun getMyPurchases(email: String): List<Purchase> = api.getMyPurchases(email)
 
     suspend fun savePurchase(p: Purchase): Purchase = api.createPurchase(p)
+
+    suspend fun getUsers() = api.getAllUsers()
+    suspend fun registerUserBackend(u: com.example.gameforgamers.model.AppUser) = api.registerUser(u)
 }

@@ -3,9 +3,12 @@ package com.example.gameforgamers.ui.auth
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope // 👈 IMPORTANTE
+import com.example.gameforgamers.data1.GameBackendRepository // 👈 IMPORTANTE
 import com.example.gameforgamers.data1.Prefs
 import com.example.gameforgamers.databinding.ActivityRegisterBinding
-import kotlin.text.iterator
+import com.example.gameforgamers.model.AppUser // 👈 IMPORTANTE
+import kotlinx.coroutines.launch // 👈 IMPORTANTE
 
 class RegisterActivity : AppCompatActivity() {
 
@@ -97,23 +100,52 @@ class RegisterActivity : AppCompatActivity() {
     return@setOnClickListener
    }
 
-   // ✅ Si todo ok: guardar usuario y perfil
-   Prefs.saveUser(this, email, pass) // se guarda con hash por dentro
-   Prefs.saveProfile(
-    this,
-    email,
-    mapOf(
-     "nombre" to nombre,
-     "apellido" to apellido,
-     "rut" to rut,
-     "region" to region,
-     "comuna" to comuna
-    )
-   )
+   // 🚀 NUEVA LÓGICA: GUARDAR EN BACKEND Y LUEGO LOCAL
+   lifecycleScope.launch {
+    try {
+     b.btnRegister.isEnabled = false // Evitar doble click
+     b.btnRegister.text = "Registrando..."
 
-   Toast.makeText(this, "Usuario registrado", Toast.LENGTH_SHORT).show()
-   finish() // volver al login
+     // 1. Guardamos en el Backend (Base de datos real)
+     val newUser = AppUser(
+      name = "$nombre $apellido", // Unimos nombre y apellido
+      email = email,
+      role = "USER"
+     )
+     // Esta línea manda la info a tu PC (Spring Boot)
+     GameBackendRepository.registerUserBackend(newUser)
+
+     // 2. Guardamos Localmente (Tu lógica original)
+     saveLocally(email, pass, nombre, apellido, rut, region, comuna)
+
+     Toast.makeText(this@RegisterActivity, "Registro exitoso", Toast.LENGTH_SHORT).show()
+     finish() // volver al login
+
+    } catch (e: Exception) {
+     e.printStackTrace()
+     // Si falla el backend, igual guardamos local para no bloquear al usuario
+     saveLocally(email, pass, nombre, apellido, rut, region, comuna)
+     Toast.makeText(this@RegisterActivity, "Registrado (Solo Local)", Toast.LENGTH_SHORT).show()
+     finish()
+    }
+   }
   }
+ }
+
+ // Función auxiliar para no repetir código
+ private fun saveLocally(email: String, pass: String, nombre: String, apellido: String, rut: String, region: String, comuna: String) {
+  Prefs.saveUser(this, email, pass)
+  Prefs.saveProfile(
+   this,
+   email,
+   mapOf(
+    "nombre" to nombre,
+    "apellido" to apellido,
+    "rut" to rut,
+    "region" to region,
+    "comuna" to comuna
+   )
+  )
  }
 
  private fun isValidRut(rut: String): Boolean {
