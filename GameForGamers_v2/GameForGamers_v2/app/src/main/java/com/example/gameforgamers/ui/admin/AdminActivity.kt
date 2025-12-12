@@ -26,28 +26,40 @@ class AdminActivity : AppCompatActivity() {
         // 1. Averiguamos quién entró
         val roleMap = Prefs.getProfile(this, "CURRENT_ADMIN")
         val role = roleMap["role"] ?: "OWNER"
-        val isEditor = (role == "EDITOR") // True si es Admin 2
 
-        // 2. Configuramos la interfaz visual
-        if (isEditor) {
-            // ADMIN 2: Gestión
-            b.tvAdminTitle.text = "Gestión de Stock y Eliminación"
-            b.btnAddGame.visibility = View.GONE
-            b.btnIngresos.visibility = View.GONE
-        } else {
-            // ADMIN 1: Dueño
-            b.tvAdminTitle.text = "Panel de Dueño (Ventas)"
-            b.btnAddGame.visibility = View.VISIBLE
-            b.btnIngresos.visibility = View.VISIBLE
+        // Variables de control
+        val isEditor = (role == "EDITOR")   // Admin 2
+        val isSupport = (role == "SUPPORT") // Admin 3 (Nuevo)
+
+        // 2. Configuramos la interfaz según el rol
+        when (role) {
+            "EDITOR" -> {
+                // Admin 2: Solo edita. No ve "Agregar" ni "Ingresos".
+                b.tvAdminTitle.text = "Gestión de Stock (Editor)"
+                b.btnAddGame.visibility = View.GONE
+                b.btnIngresos.visibility = View.GONE
+            }
+            "SUPPORT" -> {
+                // 🆕 Admin 3: Soporte. Ve "Ingresos" pero NO "Agregar".
+                b.tvAdminTitle.text = "Panel de Soporte (Solo Lectura)"
+                b.btnAddGame.visibility = View.GONE    // No puede crear
+                b.btnIngresos.visibility = View.VISIBLE // Sí puede ver ventas
+            }
+            else -> {
+                // Admin 1 (Owner): Ve todo.
+                b.tvAdminTitle.text = "Panel de Dueño"
+                b.btnAddGame.visibility = View.VISIBLE
+                b.btnIngresos.visibility = View.VISIBLE
+            }
         }
 
         // 3. Configuramos el Adapter
-        // IMPORTANTE: Aquí ya NO pasamos onIncStock ni onDecStock porque usamos la pantalla de Editar
+        // IMPORTANTE: 'isEditor' solo es true si es el Admin 2.
+        // Si es Soporte (SUPPORT), 'isEditor' es false, por lo que NO verá botones de borrar/editar.
         adapter = AdminGameAdapter(
             mutableListOf(),
             isEditor = isEditor,
             onDelete = { game ->
-                // Solo permitimos borrar si es editor (doble chequeo de seguridad)
                 if (isEditor) deleteGame(game)
             }
         )

@@ -8,6 +8,7 @@ import retrofit2.http.GET
 import retrofit2.http.POST
 import retrofit2.http.PUT
 import retrofit2.http.Path
+import retrofit2.Response
 
 interface GameBackendApi {
 
@@ -30,7 +31,7 @@ interface GameBackendApi {
     @DELETE("api/games/{id}")
     suspend fun deleteGame(
         @Path("id") id: Int
-    )
+    ): Response<Unit>
 
     // ==========================================
     // 💰 SECCIÓN DE COMPRAS (Ventas e Historial)

@@ -58,7 +58,15 @@ class LoginActivity : AppCompatActivity() {
                 return@setOnClickListener
             }
 
-            // 3) USUARIO NORMAL (Cliente)
+            // 3) 🆕 NUEVO ROL: SOPORTE (Solo lectura + Ingresos)
+            if (email == "soporte@admin.cl" && pass == "soporte123") {
+                Prefs.saveProfile(this, "CURRENT_ADMIN", mapOf("role" to "SUPPORT"))
+                startActivity(Intent(this, AdminActivity::class.java))
+                finish()
+                return@setOnClickListener
+            }
+
+            // 4) USUARIO NORMAL (Cliente)
             if (Prefs.check(this, email, pass)) {
                 Prefs.setLogged(this, email)
                 startActivity(Intent(this, MainActivity::class.java))

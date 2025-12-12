@@ -27,7 +27,12 @@ object GameBackendRepository {
     suspend fun update(game: Game): Game = api.updateGame(game.id, game)
 
     suspend fun delete(game: Game) {
-        api.deleteGame(game.id)
+        val response = api.deleteGame(game.id)
+        // Si no es exitosa (ej. 404 o 500), lanzamos error para que el Catch lo capture
+        if (!response.isSuccessful) {
+            throw Exception("Error al eliminar: ${response.code()}")
+        }
+        // Si es exitosa (204), no hacemos nada y la función termina bien.
     }
 
     // 🔽🔽 NUEVAS FUNCIONES PARA COMPRAS 🔽🔽
