@@ -1,98 +1,89 @@
 # Game For Gamers
 
-**Proyecto**: Game For Gamers --- tienda de videojuegos (Android +
-Spring Boot).\
-Muestra catálogo y ofertas, carrito y proceso de compra, administración
-de juegos y reseñas.
+**Proyecto**: Game For Gamers — Tienda de videojuegos móvil (Android + Spring Boot).
+Este proyecto implementa un sistema completo de ventas, gestión de stock, roles de usuario y sincronización con servidor.
 
-------------------------------------------------------------------------
+---
 
-## Tecnologías
+## 📱 Tecnologías
 
--   **Android (Kotlin)** --- App móvil (Activities, RecyclerView,
-    Retrofit, ViewBinding).
--   **Spring Boot (Java + JPA)** --- Backend REST con H2 / base
-    embebida.
--   **Retrofit + Gson** --- Cliente HTTP en Android.
--   **JUnit** --- Tests básicos incluidos (CartManager, Game).
+-   **Android (Kotlin)**: App nativa con arquitectura MVVM y ViewBinding.
+-   **Spring Boot (Java)**: Backend REST API con base de datos H2 embebida.
+-   **Room Database**: Persistencia local para "Favoritos" (Funciona Offline).
+-   **Retrofit + Gson**: Cliente HTTP para conectar con la API.
+-   **Recursos Nativos**:
+    -   📸 **Cámara/Galería**: Para foto de perfil.
+    -   📳 **Vibración**: Feedback háptico en compras.
+    -   📞 **Teléfono**: Intent para llamadas de soporte.
+-   **JUnit**: Pruebas unitarias integradas.
 
-------------------------------------------------------------------------
+---
 
-## Estructura del repo
+## 👥 Roles y Credenciales (Login)
 
--   `/app` --- código fuente Android (Activities, adapters, layouts,
-    res).
--   `/games-service` --- backend Spring Boot (entidades, repositorios,
-    controllers).
-    -   `Game`, `Category`, `Review`
-    -   `GameRepository`, `CategoryRepository`, `ReviewRepository`
-    -   `GameController`, `CategoryController`, `ReviewController`
-    -   `GamesServiceApplication` (semilla de datos: CommandLineRunner)
+El sistema cuenta con 4 niveles de acceso diferenciados:
 
-------------------------------------------------------------------------
+| Rol | Correo (User) | Contraseña (Pass) | Permisos |
+| :--- | :--- | :--- | :--- |
+| **Dueño (Admin 1)** | `admin@admin.com` | `admin123` | Control total: Ver Ventas (Ingresos) y Crear Productos. |
+| **Editor (Admin 2)** | `admin2@admin.com` | `admin1234` | Gestión de Stock: Editar y Eliminar juegos. |
+| **Soporte (Admin 3)** | `soporte@games.cl` | `soporte123` | Auditoría: Ver listado de Usuarios registrados (Solo lectura). |
+| **Cliente** | *(Registro libre)* | *(Cualquiera)* | Comprar, ver perfil, favoritos y reseñas. |
 
-## Qué hace la app
+---
 
--   Registro y login (admin fijo: `admin@admin.com / admin123`).
--   Edición de perfil y recuperación de contraseña.
--   Catálogo y ofertas consumiendo `/api/games`.
--   Detalle del juego (precio con oferta tachada).
--   Carrito y compra con validaciones.
--   Admin: añadir, modificar stock y eliminar juegos.
--   Vibración nativa al añadir al carrito / confirmar compra.
+## 🚀 Funcionalidades Clave
 
-------------------------------------------------------------------------
+1.  **Registro y Login Real**: Los usuarios se guardan en el Backend y se sincronizan.
+2.  **Gestión de Perfil**: Foto de avatar usando **Cámara o Galería**.
+3.  **Catálogo y Ofertas**: Consumo de API `/api/games`.
+4.  **Carrito de Compras**: Proceso de venta real que descuenta stock en el servidor.
+6.  **Panel de Administración Dinámico**: La interfaz cambia según si entra el Dueño, el Editor o el Soporte.
+7.  **APK Firmada**: Proyecto listo para distribución (Release).
 
-## Requisitos
+---
 
--   Java 17+
--   Android Studio
--   Emulador o dispositivo Android
--   Backend escuchando en `http://10.0.2.2:8080` o IP local
+## 🛠️ Backend y Base de Datos (H2)
 
-------------------------------------------------------------------------
+El backend utiliza una base de datos en memoria (H2). Para ver las tablas (Juegos, Usuarios, Ventas) en tiempo real:
 
-## Backend --- ejecución
+1.  Ejecuta el proyecto `games-service`.
+2.  Abre en tu navegador: **[http://localhost:8080/h2-console](http://localhost:8080/h2-console)**
+3.  Ingresa estos datos exactos:
+    -   **Driver Class**: `org.h2.Driver`
+    -   **JDBC URL**: `jdbc:h2:mem:gamesdb`
+    -   **User Name**: `sa`
+    -   **Password**: *(Dejar vacío)*
+4.  Click en **Connect**.
 
-1.  Abrir `games-service` en IntelliJ/STS.
-2.  Ejecutar `GamesServiceApplication`.
-3.  Endpoints:
-    -   `GET /api/games`
-    -   `GET /api/games/{id}`
-    -   `POST /api/games`
-    -   `PUT /api/games/{id}`
-    -   `DELETE /api/games/{id}`
-    -   `GET /api/categories`
-    -   `GET /api/reviews`
-    -   `GET /api/reviews/game/{id}`
+### Endpoints Principales (API):
+-   `GET /api/games` (Ver juegos)
+-   `GET /api/users` (Ver usuarios registrados)
+-   `POST /api/purchases` (Procesar compra)
+-   `GET /api/reviews` (Ver reseñas)
 
-------------------------------------------------------------------------
+---
 
-## App Android --- ejecución
+## 📂 Estructura del Entregable
 
-1.  Abrir el proyecto en Android Studio.
-2.  Configurar `GameBackendRepository` con:
-    -   `http://10.0.2.2:8080` (emulador)
-    -   `http://<IP-PC>:8080` (dispositivo)
-3.  Ejecutar y probar:
-    -   Login / Registro
-    -   Catálogo / Ofertas
-    -   Carrito y compra
-    -   Panel Admin
-        http://localhost:8080/api/games
-        http://localhost:8080/api/reviews
+-   `/app`: Código fuente Android.
+    -   Incluye archivo `llave_juegos.jks` (Firma digital) en la raíz.
+-   `/games-service`: Código fuente Backend (Spring Boot).
+-   `app-release.apk`: Aplicación compilada y firmada lista para instalar.
 
+---
 
-------------------------------------------------------------------------
+## ⚙️ Ejecución del Proyecto
 
-## Tests
+1.  **Backend**: Abrir `games-service` en IntelliJ y dar Play ▶️.
+2.  **Android**:
+    -   Abrir en Android Studio.
+    -   Verificar IP en `GameBackendRepository.kt` (usar `10.0.2.2` para emulador).
+    -   Ejecutar en emulador o instalar `app-release.apk`.
 
-Ejecutar:
-
-    ./gradlew test
-
-------------------------------------------------------------------------
+---
 
 ## Contacto
 
--   Proyecto ejecutado por: **(Vicente Urrutia)**.
+-   **Desarrollado por**: Vicente Urrutia
+-   **Asignatura**: Desarrollo de Aplicaciones Móviles (DSY1105)
